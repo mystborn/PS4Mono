@@ -24,3 +24,5 @@ To set the deadzone used to check if the joystick is being held in a specific di
 you can set this property to a value between 0 and 1.
 
 <code>PS4Mono.InputManager.GamepadAxisDeadZone = value;</code>
+
+The prgram only looks for new controllers every 2 seconds, so dont expect your game to react to new input immediately.
