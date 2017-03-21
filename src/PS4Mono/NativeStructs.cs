@@ -281,7 +281,7 @@ namespace PS4Mono
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct RawInputDeviceDescriptor
+    internal struct RawInputDeviceDescriptor
     {
 
         private IntPtr deviceHandle;
@@ -333,7 +333,7 @@ namespace PS4Mono
     }
 
     [StructLayout(LayoutKind.Sequential, Pack = 2, Size = 16)]
-    public struct RawKeyboard
+    internal struct RawKeyboard
     {
 
         private short makeCode;
@@ -371,7 +371,7 @@ namespace PS4Mono
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct RawMouse
+    internal struct RawMouse
     {
         private RawMouseFlags flags;
         private Data data;

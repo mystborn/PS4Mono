@@ -7,7 +7,7 @@ namespace PS4Mono
 {
     public static class InputManager
     {
-        #region Constants
+        #region Fields
 
         private static List<HidController> controllers = new List<HidController>();
         private static float deadZone = .15f;
@@ -21,6 +21,9 @@ namespace PS4Mono
             get { return controllers; }
         }
 
+        /// <summary>
+        /// Get or set the joystick deadzone.
+        /// </summary>
         public static float GamepadAxisDeadZone
         {
             get { return deadZone; }
@@ -31,8 +34,16 @@ namespace PS4Mono
 
         #region Controller
 
+        /// <summary>
+        /// Check if the specified button is being pressed.
+        /// </summary>
+        /// <param name="index">Controller index to check.</param>
+        /// <param name="button">The <see cref="Buttons"/> to check for.</param>
         public static bool GamepadCheck(int index, Buttons button)
         {
+            if (index >= controllers.Count)
+                return false;
+
             var b = GamepadButtonToControllerButton(button);
 
             if (controllers[index].CurrentFrameState.HasFlag(b))
@@ -41,15 +52,31 @@ namespace PS4Mono
             return false;
         }
 
+        /// <summary>
+        /// Check if the specified button is being pressed at the time of the function call.
+        /// </summary>
+        /// <param name="index">Controller index to check.</param>
+        /// <param name="button">The <see cref="Buttons"/> to check for.</param>
         public static bool GamepadCheckAsnyc(int index, Buttons button)
         {
+            if (index >= controllers.Count)
+                return false;
+
             var b = GamepadButtonToControllerButton(button);
 
             return controllers[index].State.HasFlag(b);
         }
 
+        /// <summary>
+        /// Check if the specified button has just been pressed.
+        /// </summary>
+        /// <param name="index">Controller index to check.</param>
+        /// <param name="button">The <see cref="Buttons"/> to check for.</param>
         public static bool GamepadCheckPressed(int index, Buttons button)
         {
+            if (index >= controllers.Count)
+                return false;
+
             var b = GamepadButtonToControllerButton(button);
 
             if (controllers[index].CurrentFrameState.HasFlag(b) && !controllers[index].CurrentFrameState.HasFlag(b))
@@ -58,8 +85,16 @@ namespace PS4Mono
             return false;
         }
 
+        /// <summary>
+        /// Check if the specified button has just been released.
+        /// </summary>
+        /// <param name="index">Controller index to check.</param>
+        /// <param name="button">The <see cref="Buttons"/> to check for.</param>
         public static bool GamepadCheckReleased(int index, Buttons button)
         {
+            if (index >= controllers.Count)
+                return false;
+
             var b = GamepadButtonToControllerButton(button);
 
             if (!controllers[index].CurrentFrameState.HasFlag(b) && controllers[index].CurrentFrameState.HasFlag(b))
@@ -127,11 +162,18 @@ namespace PS4Mono
 
         #region Initialize
 
+        /// <summary>
+        /// Initializes connected controllers.
+        /// </summary>
+        /// <param name="game"></param>
         public static void Initialize(Game game)
         {
             RawInputDeviceManager.Initialize(game.Window.Handle);
         }
 
+        /// <summary>
+        /// Updates connected controllers
+        /// </summary>
         public static void Update()
         {
             foreach (var c in controllers)

@@ -26,6 +26,7 @@ namespace PS4Mono
                 }
             }
 
+            //If you wanted to look for new devices more often, change the interval here to your desired time.
             var poll = new System.Timers.Timer();
             poll.Interval = 2000;
             poll.Elapsed += (s, e) => PollDevices();
