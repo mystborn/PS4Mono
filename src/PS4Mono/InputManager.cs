@@ -22,6 +22,14 @@ namespace PS4Mono
         }
 
         /// <summary>
+        /// Returns the amount of currently connected devices
+        /// </summary>
+        public static int DeviceCount
+        {
+            get { return controllers.Count; }
+        }
+
+        /// <summary>
         /// Get or set the joystick deadzone.
         /// </summary>
         public static float GamepadAxisDeadZone
@@ -41,8 +49,8 @@ namespace PS4Mono
         /// <param name="button">The <see cref="Buttons"/> to check for.</param>
         public static bool GamepadCheck(int index, Buttons button)
         {
-            if (index >= controllers.Count)
-                return false;
+            if (index >= controllers.Count || index < 0)
+                throw new ArgumentOutOfRangeException("index", "New Controller with that index is plugged in.");
 
             var b = GamepadButtonToControllerButton(button);
 
@@ -59,8 +67,8 @@ namespace PS4Mono
         /// <param name="button">The <see cref="Buttons"/> to check for.</param>
         public static bool GamepadCheckAsnyc(int index, Buttons button)
         {
-            if (index >= controllers.Count)
-                return false;
+            if (index >= controllers.Count || index < 0)
+                throw new ArgumentOutOfRangeException("index", "New Controller with that index is plugged in.");
 
             var b = GamepadButtonToControllerButton(button);
 
@@ -74,8 +82,8 @@ namespace PS4Mono
         /// <param name="button">The <see cref="Buttons"/> to check for.</param>
         public static bool GamepadCheckPressed(int index, Buttons button)
         {
-            if (index >= controllers.Count)
-                return false;
+            if (index >= controllers.Count || index < 0)
+                throw new ArgumentOutOfRangeException("index", "New Controller with that index is plugged in.");
 
             var b = GamepadButtonToControllerButton(button);
 
@@ -92,8 +100,8 @@ namespace PS4Mono
         /// <param name="button">The <see cref="Buttons"/> to check for.</param>
         public static bool GamepadCheckReleased(int index, Buttons button)
         {
-            if (index >= controllers.Count)
-                return false;
+            if (index >= controllers.Count || index < 0)
+                throw new ArgumentOutOfRangeException("index", "New Controller with that index is plugged in.");
 
             var b = GamepadButtonToControllerButton(button);
 
