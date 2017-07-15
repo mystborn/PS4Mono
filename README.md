@@ -25,6 +25,12 @@ you can set this property to a value between 0 and 1.
 
 <code>PS4Mono.InputManager.GamepadAxisDeadZone = value;</code>
 
-The prgram only looks for new controllers every 2 seconds, so dont expect your game to react to new input immediately. You can change this in the source code inside the RawInputDeviceManager class if it's an issue. It's just an arbitrary number. 
+If you want to get raw axis or trigger values, you can call:
 
-Big thanks to www.pinvoke.net and https://github.com/andyedinborough/aenetmail
+<code>var rawLeftXAxis = PS4Mono.InputManager.GamepadRawAxis(0, Axis.LeftX);
+
+var rawLeftTrigger = PS4Mono.InputManager.GamepadRawTrigger(0, Buttons.LeftTrigger);</code>
+
+The prgram only looks for new controllers every 2 seconds by default, so don't expect your game to react to new input immediately. You can change this in the initialization function by explicitly specifying the poll interval if that's an issue.
+
+Big thanks to www.pinvoke.net and https://github.com/YHiniger/ManagedX.Input
