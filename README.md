@@ -27,9 +27,11 @@ you can set this property to a value between 0 and 1.
 
 If you want to get raw axis or trigger values, you can call:
 
-<code>var rawLeftXAxis = PS4Mono.InputManager.GamepadRawAxis(0, Axis.LeftX);
+<code>var rawLeftXAxis = PS4Mono.InputManager.GamepadRawAxis(0, Axis.LeftX);</code>
 
-var rawLeftTrigger = PS4Mono.InputManager.GamepadRawTrigger(0, Buttons.LeftTrigger);</code>
+or
+
+<code>var rawLeftTrigger = PS4Mono.InputManager.GamepadRawTrigger(0, Buttons.LeftTrigger);</code>
 
 The prgram only looks for new controllers every 2 seconds by default, so don't expect your game to react to new input immediately. You can change this in the initialization function by explicitly specifying the poll interval if that's an issue.
 
