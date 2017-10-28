@@ -9,8 +9,8 @@ namespace PS4Mono
 {
     internal static class NativeMethods
     {
-        private const string Lib = "User32.dll";
-        private const string hid = "Hid.dll";
+        private const string User32 = "User32.dll";
+        private const string Hid = "Hid.dll";
         private const long InvalidHandleValue = -1;
 
         #region Win32
@@ -25,7 +25,7 @@ namespace PS4Mono
         }
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport(Lib, CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Unicode, ExactSpelling = true, PreserveSig = true, SetLastError = true)]
+        [DllImport(User32, CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Unicode, ExactSpelling = true, PreserveSig = true, SetLastError = true)]
         private static extern int GetRawInputDeviceList(
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), Optional] RawInputDeviceDescriptor[] rawInputDeviceList,
             [In, Out] ref int deviceCount,
@@ -33,7 +33,7 @@ namespace PS4Mono
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport(Lib, CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Unicode, ExactSpelling = true, PreserveSig = true, SetLastError = true)]
+        [DllImport(User32, CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Unicode, ExactSpelling = true, PreserveSig = true, SetLastError = true)]
         private static extern int GetRawInputDeviceInfoW(
             [In, Optional] IntPtr devHandle,
             [In] GetInfoCommand command,
@@ -52,26 +52,26 @@ namespace PS4Mono
             [In, Optional] IntPtr templateFile
         );
 
-        [DllImport(hid, CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Unicode, ExactSpelling = true, PreserveSig = true, SetLastError = true)]
+        [DllImport(Hid, CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Unicode, ExactSpelling = true, PreserveSig = true, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool HidD_GetPreparsedData(
             [In] SafeFileHandle HidDevice,
             [In, Out] ref IntPtr preparsedData
         );
 
-        [DllImport(hid, CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Unicode, ExactSpelling = true, PreserveSig = true, SetLastError = true)]
+        [DllImport(Hid, CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Unicode, ExactSpelling = true, PreserveSig = true, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool HidD_FreePreparsedData(
             [In] ref IntPtr preparsedData
         );
 
-        [DllImport(hid, CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Unicode, ExactSpelling = true, PreserveSig = true, SetLastError = true)]
+        [DllImport(Hid, CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Unicode, ExactSpelling = true, PreserveSig = true, SetLastError = true)]
         internal static extern NTStatus HidP_GetCaps(
             [In] IntPtr preparsedData,
             [In, Out] ref HidPCaps caps
         );
 
-        [DllImport(hid, CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Unicode, ExactSpelling = true, PreserveSig = true, SetLastError = true)]
+        [DllImport(Hid, CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Unicode, ExactSpelling = true, PreserveSig = true, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal unsafe static extern bool HidD_GetProductString(
             [In] SafeFileHandle hidDevice,
@@ -136,7 +136,7 @@ namespace PS4Mono
             throw new NotSupportedException("Failed to retrieve raw input device name: string length mismatch (bad implementation).");
         }
 
-        internal unsafe static bool TryRegisterPS4Controller(IntPtr handle, out Playstation4Input controller)
+        internal unsafe static bool TryRegisterPS4Controller(IntPtr handle, out Ps4Controller controller)
         {
             controller = null;
             var devName = GetRawInputDeviceName(handle);
@@ -174,7 +174,7 @@ namespace PS4Mono
                 if (caps.InputReportByteLength == 64)
                 {
                     HidD_FreePreparsedData(ref preparsedData);
-                    controller = new Playstation4Input(devHandle, caps);
+                    controller = new Ps4Controller(devHandle, caps);
                     return true;
                 }
                 else

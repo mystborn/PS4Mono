@@ -2,17 +2,6 @@
 
 namespace PS4Mono
 {
-    /// <summary>
-    /// Controller Axes
-    /// </summary>
-    public enum Axis
-    {
-        LeftX,
-        LeftY,
-        RightX,
-        RightY
-    }
-
     internal enum InputDeviceType : int
     {
         Mouse = 0,
@@ -25,7 +14,6 @@ namespace PS4Mono
         PreParsedData = 0x20000005,
         DeviceName = 0x20000007,
         DeviceInfo = 0x2000000b
-
     }
 
     internal enum TopLevelCollectionUsage : int
@@ -55,38 +43,6 @@ namespace PS4Mono
         AppKeys = 0x00000400,
         ExInputSink = 0x00001000,
         DevNotify = 0x00002000
-    }
-
-    [Flags]
-    internal enum ControllerButtons : uint
-    {
-        None = 0x00000000,
-        Face1 = 0x00000001,
-        Face2 = 0x00000002,
-        Face3 = 0x00000004,
-        Face4 = 0x00000008,
-        DpadUp = 0x00000010,
-        DpapdRight = 0x00000020,
-        DpadDown = 0x00000040,
-        DpadLeft = 0x00000080,
-        RightButton = 0x00000100,
-        LeftButton = 0x00000200,
-        RightTrigger = 0x00000400,
-        LeftTrigger = 0x00000800,
-        Start = 0x00001000,
-        Select = 0x00002000,
-        RightStick = 0x00004000,
-        LeftStick = 0x00008000,
-        LeftStickUp = 0x00010000,
-        LeftStickLeft = 0x00020000,
-        LeftStickDown = 0x00040000,
-        LeftStickRight = 0x00080000,
-        RightStickUp = 0x00100000,
-        RightStickLeft = 0x00200000,
-        RightStickDown = 0x00400000,
-        RightStickRight = 0x00800000,
-        Symbol = 0x01000000,
-        Trackpad = 0x02000000
     }
 
     internal enum HidUsagePage : ushort

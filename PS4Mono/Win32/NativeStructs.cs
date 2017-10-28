@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using Point = Microsoft.Xna.Framework.Point;
 
 namespace PS4Mono
 {
@@ -172,7 +171,7 @@ namespace PS4Mono
             DeviceType = deviceType;
             Size = structSize;
             DeviceHandle = device;
-            this.WParameter = param;
+            WParameter = param;
         }
 
     }
